@@ -4,14 +4,17 @@ import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { formatUrl } from "../../helpers";
 import Input from "../Input/Input";
 import { useFilters } from "../../hooks";
-
+import { useDispatch } from "react-redux";
+import { setGif } from "../../features/Favourites/FavouritesSlice";
 const Search = () => {
+  const dispatch = useDispatch();
   const [gifs, setGifs] = useState([]);
   const [handleChange, filters] = useFilters({
     search: "",
     limit: 0,
     offset: 0,
   });
+
   const submit = async (e) => {
     e.preventDefault();
     const trendingGifs = await axios.get(
@@ -23,6 +26,7 @@ const Search = () => {
     );
     setGifs(trendingGifs.data.data);
   };
+
   return (
     <>
       <div>Search</div>
@@ -77,6 +81,7 @@ const Search = () => {
       <div style={{ float: "left" }}>
         {gifs.map((gif) => (
           <img
+            onClick={() => dispatch(setGif(gif))}
             key={Math.random()}
             src={`${gif.images.fixed_height_downsampled.url}`}
             alt="this slowpoke moves"
