@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login/Login";
 // import "./App.css";
-import Search from "./components/Search/Search";
 import NotFound from "./components/NotFound/NotFound";
-import Favourites from "./components/Favourites/Favourites";
+import HomePage from "./components/HomePage/HomePage";
 import Trending from "./components/Trending/Trending";
+import Search from "./components/Search/Search";
 
 function App() {
   return (
@@ -20,9 +20,9 @@ function App() {
           <Redirect to="/login" />
         </Route>
         <Route exact path="/login" component={Login} />
+        <Route path="/home-page" component={HomePage} />
+        <Route path="/home-page/trending" component={Trending} />
         <Route exact path="/search" component={Search} />
-        <Route exact path="/favourites" component={Favourites} />
-        <Route exact path="/tranding" component={Trending} />
         <Route path="*" exact component={NotFound} />
       </Switch>
     </Router>

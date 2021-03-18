@@ -10,7 +10,7 @@ const Login = () => {
   });
 
   const submit = () => {
-    history.push("/search");
+    history.push("/home-page");
   };
   return (
     <Container fluid>
