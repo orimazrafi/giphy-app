@@ -1,3 +1,4 @@
+import { NOT_FOUND } from "./constants";
 export const formatUrl = (type, filters) => {
   const filtersString = filters
     .map((filter) => `&${filter.filter}=${filter.value}`)
@@ -16,3 +17,7 @@ export const inputValidation = (errors, field, value) => (
 
 export const capitalizeFirstLetter = (string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
+
+export const isSelected = (favouriteGifs, gif) => {
+  return favouriteGifs.indexOf(gif) === NOT_FOUND;
+};
