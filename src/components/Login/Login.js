@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useInput } from "../../hooks";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Container } from "react-bootstrap";
 import Input from "../Input/Input";
-
+import ButtonComponent from "../ButtonComponent/ButtonComponent";
 const Login = () => {
   const history = useHistory();
   useEffect(() => {});
@@ -21,44 +21,32 @@ const Login = () => {
   return (
     <Container fluid>
       <Form>
-        <Row>
-          <Col xs={4}>
-            <Input
-              filter={credentials.username}
-              onChange={handleChange}
-              name="username"
-              type="text"
-              validation
-              handleBlur={handleError}
-              errors={errors}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={4}>
-            <Input
-              filter={credentials.password}
-              onChange={handleChange}
-              name="password"
-              type="text"
-              validation
-              handleBlur={handleError}
-              errors={errors}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={submit}
-              disabled={!credentials.username || !credentials.password}
-            >
-              Submit
-            </Button>
-          </Col>
-        </Row>
+        <Input
+          filter={credentials.username}
+          onChange={handleChange}
+          name="username"
+          type="text"
+          size={4}
+          validation
+          handleBlur={handleError}
+          errors={errors}
+        />
+        <Input
+          filter={credentials.password}
+          onChange={handleChange}
+          name="password"
+          type="text"
+          size={4}
+          validation
+          handleBlur={handleError}
+          errors={errors}
+        />
+        <ButtonComponent
+          name="Submit"
+          submit={submit}
+          size={4}
+          disabled={!credentials.username || !credentials.password}
+        />
       </Form>
     </Container>
   );
