@@ -1,65 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
-
+import { useInput } from "../../hooks";
+import { Form, Container } from "react-bootstrap";
+import Input from "../Input/Input";
+import ButtonComponent from "../ButtonComponent/ButtonComponent";
 const Login = () => {
   const history = useHistory();
-  const [credentials, setCredentials] = useState({
+  useEffect(() => {});
+  const [credentials, handleChange] = useInput({
     username: "",
     password: "",
   });
 
-  const submit = () => {
+  const [errors, handleError] = useInput();
+  const submit = (e) => {
+    e.preventDefault();
     history.push("/home-page");
   };
+
   return (
     <Container fluid>
       <Form>
-        <Row>
-          <Col xs={4}>
-            <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                name="username"
-                type="text"
-                value={credentials.username}
-                onChange={(e) =>
-                  setCredentials((pre) => ({
-                    ...pre,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-                placeholder="Enter username..."
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={4}>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                value={credentials.password}
-                onChange={(e) =>
-                  setCredentials((pre) => ({
-                    ...pre,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-                placeholder="Enter Password..."
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button variant="primary" type="submit" onClick={submit}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
+        <Input
+          filter={credentials.username}
+          onChange={handleChange}
+          name="username"
+          type="text"
+          size={4}
+          validation
+          handleBlur={handleError}
+          errors={errors}
+        />
+        <Input
+          filter={credentials.password}
+          onChange={handleChange}
+          name="password"
+          type="text"
+          size={4}
+          validation
+          handleBlur={handleError}
+          errors={errors}
+        />
+        <ButtonComponent
+          name="Submit"
+          submit={submit}
+          size={4}
+          disabled={!credentials.username || !credentials.password}
+        />
       </Form>
     </Container>
   );

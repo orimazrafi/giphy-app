@@ -1,18 +1,34 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
+import { inputValidation, capitalizeFirstLetter } from "../../helpers";
 
-const Input = ({ title, filter, onChange, name, type, placeholder }) => {
+const Input = ({
+  value,
+  onChange,
+  handleBlur,
+  name,
+  type,
+  size,
+  validation = false,
+  errors,
+}) => {
   return (
-    <Form.Group controlId={name}>
-      <Form.Label>{title}</Form.Label>
-      <Form.Control
-        name={name}
-        type={type}
-        value={filter}
-        onChange={onChange}
-        placeholder={placeholder}
-      />
-    </Form.Group>
+    <Row>
+      <Col xs={size}>
+        <Form.Group controlId={name}>
+          <Form.Label>{capitalizeFirstLetter(name)}</Form.Label>
+          <Form.Control
+            name={name}
+            type={type}
+            value={value}
+            onChange={onChange}
+            placeholder={`Enter ${capitalizeFirstLetter(name)}...`}
+            onBlur={handleBlur}
+          />
+          {validation && inputValidation(errors, name, value)}
+        </Form.Group>
+      </Col>
+    </Row>
   );
 };
 

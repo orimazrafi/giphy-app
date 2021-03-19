@@ -18,5 +18,5 @@ const favouritesSlice = createSlice({
 });
 
 export const { setGif } = favouritesSlice.actions;
-// export const countValue = (state) => state.counter.value;
+export const gifsArray = (state) => state.favourites.gifs;
 export default favouritesSlice.reducer;

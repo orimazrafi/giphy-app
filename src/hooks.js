@@ -1,5 +1,6 @@
 import { useState } from "react";
-export const useFilters = (initialState) => {
+
+export const useInput = (initialState) => {
   const [filters, setFilters] = useState(initialState);
   const handleChange = (e) => {
     setFilters((pre) => ({
@@ -7,5 +8,5 @@ export const useFilters = (initialState) => {
       [e.target.name]: e.target.value,
     }));
   };
-  return [handleChange, filters];
+  return [filters, handleChange];
 };
