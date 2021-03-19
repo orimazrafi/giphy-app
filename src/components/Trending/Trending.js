@@ -3,14 +3,14 @@ import axios from "axios";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { formatUrl } from "../../helpers";
 import Input from "../Input/Input";
-import { useFilters } from "../../hooks";
+import { useInput } from "../../hooks";
 import { useDispatch } from "react-redux";
 import { setGif } from "../../features/Favourites/FavouritesSlice";
 
 const Trending = () => {
   const dispatch = useDispatch();
   const [gifs, setGifs] = useState([]);
-  const [handleChange, filters] = useFilters({
+  const [filters, handleChange] = useInput({
     limit: 0,
     offset: 0,
   });
@@ -35,24 +35,20 @@ const Trending = () => {
           <Row>
             <Col xs={4}>
               <Input
-                filter={filters.limit}
+                value={filters.limit}
                 onChange={handleChange}
                 name="limit"
                 type="number"
-                placeholder="Enter Limit..."
-                title="Limit"
               />
             </Col>
           </Row>
           <Row>
             <Col xs={4}>
               <Input
-                filter={filters.offset}
+                value={filters.offset}
                 onChange={handleChange}
                 name="offset"
                 type="number"
-                placeholder="Enter Offset..."
-                title="Offset"
               />
             </Col>
           </Row>
