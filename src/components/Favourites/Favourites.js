@@ -4,20 +4,24 @@ import { useInput } from "../../hooks";
 import { Form, Container, Row, Col } from "react-bootstrap";
 import Input from "../Input/Input";
 import { GifWrapper } from "../../elements";
+import { useDispatch } from "react-redux";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
+import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
+import { setError } from "../../features/Errors/ErrorsSlice";
 
 const Favourites = () => {
   const [loading, setLoading] = useState(false);
   const gifs = useSelector((state) => state.favourites.gifs);
+  const dispatch = useDispatch();
   const [favourites, handleChange] = useInput({
     title: "",
   });
   const [filteredGifs, setFilteredGifs] = useState(gifs);
   const search = (e) => {
     try {
-      setLoading(true);
       e.preventDefault();
+      setLoading(true);
       if (!favourites.title) {
         setFilteredGifs(gifs);
         return setLoading(false);
@@ -30,6 +34,7 @@ const Favourites = () => {
       setLoading(false);
     } catch (ex) {
       setLoading(false);
+      dispatch(setError({ message: ex.message, component: "Favourites" }));
     }
   };
 
@@ -70,5 +75,4 @@ const Favourites = () => {
     </>
   );
 };
-
-export default Favourites;
+export default ErrorBoundryComponent(Favourites);

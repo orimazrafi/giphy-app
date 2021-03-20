@@ -3,8 +3,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import NotFound from "./components/NotFound/NotFound";
 import HomePage from "./components/HomePage/HomePage";
-import Trending from "./components/Trending/Trending";
-import Search from "./components/Search/Search";
 import LoadingComponent from "./components/LoadingComponent/LoadingComponent";
 
 function App() {
@@ -26,8 +24,6 @@ function App() {
             <Redirect to="/home-page" />
           </Route>
           <Route path="/home-page" component={HomePage} />
-          <Route path="/home-page/trending" component={Trending} />
-          <Route exact path="/search" component={Search} />
           <Route path="*" exact component={NotFound} />
         </Switch>
       </>

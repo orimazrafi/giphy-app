@@ -10,6 +10,8 @@ import { GifWrapper } from "../../elements";
 import { gifsArray } from "../../features/Favourites/FavouritesSlice";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
+import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
+import { setError } from "../../features/Errors/ErrorsSlice";
 
 const Search = () => {
   const favouriteGifs = useSelector(gifsArray);
@@ -39,6 +41,7 @@ const Search = () => {
       setLoading(false);
     } catch (ex) {
       setLoading(false);
+      dispatch(setError({ message: ex.message, component: "Search" }));
     }
   };
 
@@ -112,4 +115,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default ErrorBoundryComponent(Search);

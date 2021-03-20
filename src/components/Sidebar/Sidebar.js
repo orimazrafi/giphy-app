@@ -5,6 +5,7 @@ import Switch from "react-bootstrap/esm/Switch";
 import Trending from "../Trending/Trending";
 import Favourites from "../Favourites/Favourites";
 import Search from "../Search/Search";
+import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 
 const Sidebar = () => {
   return (
@@ -38,4 +39,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default ErrorBoundryComponent(Sidebar);
