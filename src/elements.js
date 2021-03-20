@@ -13,3 +13,12 @@ export const GifWrapper = styled.img`
           `}
   }
 `;
+
+export const LoaderWrapper = styled.div`
+  height: 60vh;
+  /* width: 100vw; */
+  display: flex;
+  & > div {
+    margin: auto;
+  }
+`;

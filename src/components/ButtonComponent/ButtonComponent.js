@@ -1,31 +1,28 @@
 import React from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import styled from "styled-components";
 const ButtonComponent = ({
   name,
   submit,
-  size,
   variant = "primary",
   disabled,
+  noSpacing,
 }) => {
   return (
-    <Row>
-      <Col xs={size}>
-        <ButtonWrapper
-          variant={variant}
-          type="submit"
-          onClick={submit}
-          disabled={disabled}
-        >
-          {name}
-        </ButtonWrapper>
-      </Col>
-    </Row>
+    <ButtonWrapper
+      variant={variant}
+      type="submit"
+      onClick={submit}
+      disabled={disabled}
+      nospacing={noSpacing}
+    >
+      {name}
+    </ButtonWrapper>
   );
 };
 
 export default ButtonComponent;
 
 const ButtonWrapper = styled(Button)`
-  float: right;
+  margin-top: ${(props) => (props.nospacing ? "0" : "2rem")};
 `;
