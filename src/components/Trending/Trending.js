@@ -9,8 +9,11 @@ import { setGif } from "../../features/Favourites/FavouritesSlice";
 import { GifWrapper } from "../../elements";
 import { gifsArray } from "../../features/Favourites/FavouritesSlice";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Trending = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log({ user, isAuthenticated, isLoading });
   const favouriteGifs = useSelector(gifsArray);
   const dispatch = useDispatch();
   const [gifs, setGifs] = useState([]);
