@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { formatUrl, isSelected } from "../../helpers";
 import Input from "../Input/Input";
 import { useInput } from "../../hooks";
@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setGif } from "../../features/Favourites/FavouritesSlice";
 import { GifWrapper } from "../../elements";
 import { gifsArray } from "../../features/Favourites/FavouritesSlice";
-
+import ButtonComponent from "../ButtonComponent/ButtonComponent";
 const Search = () => {
   const favouriteGifs = useSelector(gifsArray);
   const dispatch = useDispatch();
@@ -38,51 +38,37 @@ const Search = () => {
       <div>Please filter out:</div>
       <Container fluid>
         <Form>
-          <Row>
-            <Col xs={4}>
-              <Input
-                value={filters.search}
-                onChange={handleChange}
-                name="search"
-                type="text"
-                validation
-                handleBlur={handleError}
-                errors={errors}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={4}>
-              <Input
-                value={filters.limit}
-                onChange={handleChange}
-                name="limit"
-                type="number"
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={4}>
-              <Input
-                value={filters.offset}
-                onChange={handleChange}
-                name="offset"
-                type="number"
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Button
-                variant="primary"
-                type="submit"
-                onClick={submit}
-                disabled={!filters.search}
-              >
-                Submit
-              </Button>
-            </Col>
-          </Row>
+          <Input
+            value={filters.search}
+            onChange={handleChange}
+            name="search"
+            type="text"
+            size={4}
+            validation
+            handleBlur={handleError}
+            errors={errors}
+          />
+          <Input
+            value={filters.limit}
+            onChange={handleChange}
+            name="limit"
+            type="number"
+            size={4}
+          />
+
+          <Input
+            value={filters.offset}
+            onChange={handleChange}
+            name="offset"
+            type="number"
+            size={4}
+          />
+          <ButtonComponent
+            name="Submit"
+            submit={submit}
+            size={4}
+            disabled={!filters.search}
+          />
         </Form>
       </Container>
       <div style={{ float: "left" }}>
