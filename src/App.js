@@ -5,17 +5,19 @@ import NotFound from "./components/NotFound/NotFound";
 import HomePage from "./components/HomePage/HomePage";
 import Trending from "./components/Trending/Trending";
 import Search from "./components/Search/Search";
-import ButtonComponent from "./components/ButtonComponent/ButtonComponent";
+import LoadingComponent from "./components/LoadingComponent/LoadingComponent";
+
 function App() {
-  const { isLoading, user, error, loginWithRedirect } = useAuth0();
+  const { isLoading, user, error } = useAuth0();
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingComponent />;
   }
   if (error) {
     return <div>Oops... {error.message}</div>;
   }
   if (user) localStorage.setItem("user", JSON.stringify(user));
   const storageUser = localStorage.getItem("user");
+
   if (storageUser) {
     return (
       <>
@@ -30,24 +32,8 @@ function App() {
         </Switch>
       </>
     );
-  } else {
-    localStorage.removeItem("user");
-    return (
-      <>
-        <ButtonComponent
-          name="Log in"
-          variant="primary"
-          size={4}
-          submit={loginWithRedirect}
-        />
-        <Switch>
-          <Route path="*">
-            <Redirect to="/login" />
-          </Route>
-        </Switch>
-      </>
-    );
   }
+  return null;
 }
 
 export default App;

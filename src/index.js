@@ -8,6 +8,8 @@ import { store } from "./store";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CLIENT_ID, APP_DOMAIN } from "./constants";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import NavbarWrapper from "./components/NavbarWrapper/NavbarWrapper";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,7 +20,9 @@ ReactDOM.render(
           clientId={CLIENT_ID}
           redirectUri={window.location.origin + "/home-page"}
         >
-          <App />
+          <NavbarWrapper>
+            <App />
+          </NavbarWrapper>
         </Auth0Provider>
       </React.StrictMode>
     </Router>
@@ -26,4 +30,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-reportWebVitals(console.log);
+reportWebVitals();
