@@ -10,6 +10,8 @@ import { GifWrapper } from "../../elements";
 import { gifsArray } from "../../features/Favourites/FavouritesSlice";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
+import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
+import { setError } from "../../features/Errors/ErrorsSlice";
 
 const Trending = () => {
   const favouriteGifs = useSelector(gifsArray);
@@ -31,10 +33,12 @@ const Trending = () => {
           { filter: "offset", value: filters.offset },
         ])
       );
+
       setGifs(trendingGifs.data.data);
       setLoading(false);
     } catch (ex) {
       setLoading(false);
+      dispatch(setError({ message: ex.message, component: "Trending" }));
     }
   };
 
@@ -89,4 +93,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default ErrorBoundryComponent(Trending);
