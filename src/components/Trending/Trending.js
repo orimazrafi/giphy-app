@@ -6,12 +6,13 @@ import Input from "../Input/Input";
 import { useInput } from "../../hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { setGif } from "../../features/Favourites/FavouritesSlice";
-import { GifWrapper } from "../../elements";
+import { GifWrapper, GifsContainer } from "../../elements";
 import { gifsArray } from "../../features/Favourites/FavouritesSlice";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import { setError } from "../../features/Errors/ErrorsSlice";
+import { TRANDEING } from "../../constants";
 
 const Trending = () => {
   const favouriteGifs = useSelector(gifsArray);
@@ -33,18 +34,16 @@ const Trending = () => {
           { filter: "offset", value: filters.offset },
         ])
       );
-
       setGifs(trendingGifs.data.data);
       setLoading(false);
     } catch (ex) {
       setLoading(false);
-      dispatch(setError({ message: ex.message, component: "Trending" }));
+      dispatch(setError({ message: ex.message, component: TRANDEING }));
     }
   };
 
   return (
     <>
-      <div>Trending Please filter out:</div>
       <Container fluid>
         <Form>
           <Row>
@@ -54,7 +53,6 @@ const Trending = () => {
                 onChange={handleChange}
                 name="limit"
                 type="number"
-                size={4}
               />
             </Col>
             <Col xs={3}>
@@ -63,11 +61,10 @@ const Trending = () => {
                 onChange={handleChange}
                 name="offset"
                 type="number"
-                size={4}
               />
             </Col>
             <Col>
-              <ButtonComponent name="Submit" submit={submit} size={4} />
+              <ButtonComponent name="Submit" submit={submit} />
             </Col>
           </Row>
         </Form>
@@ -75,7 +72,7 @@ const Trending = () => {
       {loading ? (
         <LoadingComponent />
       ) : (
-        <>
+        <GifsContainer>
           {gifs.map((gif) => (
             <GifWrapper
               key={Math.random()}
@@ -87,7 +84,7 @@ const Trending = () => {
               disabled={isSelected(favouriteGifs, gif)}
             />
           ))}
-        </>
+        </GifsContainer>
       )}
     </>
   );

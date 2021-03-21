@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link, Route, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Switch from "react-bootstrap/esm/Switch";
 import Trending from "../Trending/Trending";
 import Favourites from "../Favourites/Favourites";
 import Search from "../Search/Search";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import styled from "styled-components";
-import { SIDEBAR_ACTIVE } from "../../constants";
+import { SIDEBAR_ACTIVE, TRANDEING, SEARCH, FAVOURITES } from "../../constants";
+import LinkWrapper from "../LinkWrapper/LinkWrapper";
 
 const Sidebar = () => {
   const [activeLink, setActiveLink] = useState(SIDEBAR_ACTIVE);
@@ -22,43 +23,27 @@ const Sidebar = () => {
     <Container fluid>
       <Row>
         <ColWrapper xs={2}>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li onClick={() => handleClick("Trending")}>
-              <LinkWrapper to="/home-page/trending">
-                <h5
-                  className={activeLink["Trending"] === true ? " active" : ""}
-                >
-                  Trending
-                </h5>
-              </LinkWrapper>
-            </li>
-            <li onClick={() => handleClick("Search")}>
-              <LinkWrapper to="/home-page/search">
-                <h5 className={activeLink["Search"] === true ? " active" : ""}>
-                  Search
-                </h5>
-              </LinkWrapper>
-            </li>
-            <li onClick={() => handleClick("Favourites")}>
-              <LinkWrapper to="/home-page/favourites">
-                <h5
-                  className={activeLink["Favourites"] === true ? " active" : ""}
-                >
-                  Favourites
-                </h5>
-              </LinkWrapper>
-            </li>
+          <ul className="home--page--links--wrapper">
+            {[TRANDEING, SEARCH, FAVOURITES].map((link) => (
+              <LinkWrapper
+                key={Math.random()}
+                title={link}
+                handleClick={handleClick}
+                activeLink={activeLink}
+              />
+            ))}
           </ul>
         </ColWrapper>
-
         <Col>
           <Switch>
-            <Route exact path="/home-page">
-              <Redirect to="/home-page/trending" />
-            </Route>
-            <Route path="/home-page/trending" component={Trending} />
-            <Route path="/home-page/search" component={Search} />
-            <Route path="/home-page/favourites" component={Favourites} />
+            <RoutesWrapper>
+              <Route exact path="/home-page">
+                <Redirect to="/home-page/trending" />
+              </Route>
+              <Route path="/home-page/trending" component={Trending} />
+              <Route path="/home-page/search" component={Search} />
+              <Route path="/home-page/favourites" component={Favourites} />
+            </RoutesWrapper>
           </Switch>
         </Col>
       </Row>
@@ -73,17 +58,12 @@ const ColWrapper = styled(Col)`
   background: #eee;
   max-width: 200px;
   padding-top: 10px;
+  & > ul.home--page--links--wrapper {
+    list-style-type: none;
+    padding: 0;
+  }
 `;
 
-const LinkWrapper = styled(Link)`
-  & > h5 {
-    margin-top: 20px;
-  }
-  &:hover {
-    text-decoration: none;
-    color: #5690bd;
-  }
-  h5.active {
-    color: #021829;
-  }
+const RoutesWrapper = styled.div`
+  margin-top: 30px;
 `;

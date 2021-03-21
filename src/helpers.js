@@ -1,4 +1,5 @@
 import { NOT_FOUND } from "./constants";
+
 export const formatUrl = (type, filters) => {
   const filtersString = filters
     .map((filter) => `&${filter.filter}=${filter.value}`)
@@ -19,5 +20,8 @@ export const capitalizeFirstLetter = (string) =>
   string.charAt(0).toUpperCase() + string.slice(1);
 
 export const isSelected = (favouriteGifs, gif) => {
-  return favouriteGifs.indexOf(gif) === NOT_FOUND;
+  return (
+    favouriteGifs.findIndex((favouriteGif) => favouriteGif.id === gif.id) ===
+    NOT_FOUND
+  );
 };

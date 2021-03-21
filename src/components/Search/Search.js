@@ -6,13 +6,13 @@ import Input from "../Input/Input";
 import { useInput } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { setGif } from "../../features/Favourites/FavouritesSlice";
-import { GifWrapper } from "../../elements";
+import { GifWrapper, GifsContainer } from "../../elements";
 import { gifsArray } from "../../features/Favourites/FavouritesSlice";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import { setError } from "../../features/Errors/ErrorsSlice";
-
+import { SEARCH } from "../../constants";
 const Search = () => {
   const favouriteGifs = useSelector(gifsArray);
   const [loading, setLoading] = useState(false);
@@ -41,13 +41,12 @@ const Search = () => {
       setLoading(false);
     } catch (ex) {
       setLoading(false);
-      dispatch(setError({ message: ex.message, component: "Search" }));
+      dispatch(setError({ message: ex.message, component: SEARCH }));
     }
   };
 
   return (
     <>
-      <div>Search Please filter out:</div>
       <Container fluid>
         <Form>
           <Row>
@@ -57,37 +56,31 @@ const Search = () => {
                 onChange={handleChange}
                 name="search"
                 type="text"
-                size={4}
                 validation
                 handleBlur={handleError}
                 errors={errors}
               />
             </Col>
-
             <Col xs={3}>
               <Input
                 value={filters.limit}
                 onChange={handleChange}
                 name="limit"
                 type="number"
-                size={4}
               />
             </Col>
-
             <Col xs={3}>
               <Input
                 value={filters.offset}
                 onChange={handleChange}
                 name="offset"
                 type="number"
-                size={4}
               />
             </Col>
             <Col xs={3}>
               <ButtonComponent
                 name="Submit"
                 submit={submit}
-                size={4}
                 disabled={!filters.search}
               />
             </Col>
@@ -97,7 +90,7 @@ const Search = () => {
       {loading ? (
         <LoadingComponent />
       ) : (
-        <>
+        <GifsContainer>
           {gifs.map((gif) => (
             <GifWrapper
               key={Math.random()}
@@ -109,7 +102,7 @@ const Search = () => {
               disabled={isSelected(favouriteGifs, gif)}
             />
           ))}
-        </>
+        </GifsContainer>
       )}
     </>
   );
