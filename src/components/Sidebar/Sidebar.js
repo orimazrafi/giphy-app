@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Route, Redirect } from "react-router-dom";
-import Switch from "react-bootstrap/esm/Switch";
+import { Route, Redirect, useLocation, Switch } from "react-router-dom";
 import Trending from "../Trending/Trending";
+import NotFound from "../NotFound/NotFound";
+
 import Favourites from "../Favourites/Favourites";
 import Search from "../Search/Search";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import styled from "styled-components";
+import { capitalizeFirstLetter } from "../../helpers";
+
 import { SIDEBAR_ACTIVE, TRANDEING, SEARCH, FAVOURITES } from "../../constants";
 import LinkWrapper from "../LinkWrapper/LinkWrapper";
 
 const Sidebar = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const pathnameLink = pathname?.split("/")[2];
+    if (pathnameLink) handleClick(capitalizeFirstLetter(pathnameLink));
+  }, [pathname]);
+
   const [activeLink, setActiveLink] = useState(SIDEBAR_ACTIVE);
   const handleClick = (title) => {
     setActiveLink({
@@ -35,16 +45,17 @@ const Sidebar = () => {
           </ul>
         </ColWrapper>
         <Col>
-          <Switch>
-            <RoutesWrapper>
+          <RoutesWrapper>
+            <Switch>
               <Route exact path="/home-page">
                 <Redirect to="/home-page/trending" />
               </Route>
               <Route path="/home-page/trending" component={Trending} />
               <Route path="/home-page/search" component={Search} />
               <Route path="/home-page/favourites" component={Favourites} />
-            </RoutesWrapper>
-          </Switch>
+              <Route path="*" exact component={NotFound} />
+            </Switch>
+          </RoutesWrapper>
         </Col>
       </Row>
     </Container>

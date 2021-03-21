@@ -5,7 +5,7 @@ export const TRANDEING = "Trending";
 export const SEARCH = "Search";
 export const FAVOURITES = "Favourites";
 export const SIDEBAR_ACTIVE = {
-  Trending: true,
+  Trending: false,
   Search: false,
   Favourites: false,
 };
