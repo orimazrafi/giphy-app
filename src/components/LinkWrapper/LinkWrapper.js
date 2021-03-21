@@ -11,6 +11,7 @@ const LinkWrapper = ({ title, handleClick, activeLink }) => {
     </li>
   );
 };
+
 export default LinkWrapper;
 const LinkWrap = styled(Link)`
   & > h5 {
@@ -18,9 +19,9 @@ const LinkWrap = styled(Link)`
   }
   &:hover {
     text-decoration: none;
-    color: #5690bd;
+    color: ${({ theme }) => theme?.hoverColor};
   }
   h5.active {
-    color: #021829;
+    color: ${({ theme }) => theme?.activeColor};
   }
 `;

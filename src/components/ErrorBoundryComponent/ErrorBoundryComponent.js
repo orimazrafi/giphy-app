@@ -1,4 +1,5 @@
 import { ErrorBoundary } from "react-error-boundary";
+
 const ErrorFallback = ({ error }) => {
   return <h2>something went wrong!{error.message}</h2>;
 };

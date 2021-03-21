@@ -1,5 +1,5 @@
 import { NOT_FOUND } from "./constants";
-
+import { ErrorWrapper } from "./elements";
 export const formatUrl = (type, filters) => {
   const filtersString = filters
     .map((filter) => `&${filter.filter}=${filter.value}`)
@@ -8,12 +8,12 @@ export const formatUrl = (type, filters) => {
 };
 
 export const inputValidation = (errors, field, value) => (
-  <span style={{ color: "red" }}>
+  <ErrorWrapper>
     {errors &&
       errors[field] === "" &&
       !value &&
       `${capitalizeFirstLetter(field)} is required`}
-  </span>
+  </ErrorWrapper>
 );
 
 export const capitalizeFirstLetter = (string) =>

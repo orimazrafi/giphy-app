@@ -12,12 +12,13 @@ import { setError } from "../../features/Errors/ErrorsSlice";
 import { FAVOURITES } from "../../constants";
 
 const Favourites = () => {
-  const [loading, setLoading] = useState(false);
-  const gifs = useSelector((state) => state.favourites.gifs);
-  const dispatch = useDispatch();
   const [favourites, handleChange] = useInput({
     title: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const gifs = useSelector((state) => state.favourites.gifs);
+  const dispatch = useDispatch();
   const [filteredGifs, setFilteredGifs] = useState(gifs);
   const search = (e) => {
     try {

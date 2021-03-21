@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Row, Col, Container, Image } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled, { css } from "styled-components";
+
 const NavbarComponent = () => {
   const { logout, loginWithRedirect, user } = useAuth0();
   const storageUser = localStorage.getItem("user");
@@ -12,6 +13,7 @@ const NavbarComponent = () => {
     logout({ returnTo: window.location.origin });
     localStorage.removeItem("user");
   };
+
   return (
     <NavbarWrapper bg="dark" variant="dark">
       <Container fluid>
@@ -20,14 +22,14 @@ const NavbarComponent = () => {
             <Row>
               <Col>
                 <LinkWrapper noalign={"true"}>
-                  {activeUser.given_name}
+                  {activeUser?.given_name}
                 </LinkWrapper>
               </Col>
               <Col>
                 <LinkWrapper>
                   <Image
-                    src={activeUser.picture}
-                    alt={activeUser.given_name}
+                    src={activeUser?.picture}
+                    alt={activeUser?.given_name}
                     roundedCircle
                     className="profile--image"
                   />

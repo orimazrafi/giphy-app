@@ -10,7 +10,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { CLIENT_ID, APP_DOMAIN } from "./constants";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import NavbarWrapper from "./components/NavbarWrapper/NavbarWrapper";
-
+import { ThemeProvider } from "styled-components";
+import { lightTheme } from "./themes";
 ReactDOM.render(
   <Provider store={store}>
     <Router>
@@ -21,7 +22,9 @@ ReactDOM.render(
           redirectUri={window.location.origin + "/home-page"}
         >
           <NavbarWrapper>
-            <App />
+            <ThemeProvider theme={lightTheme}>
+              <App />
+            </ThemeProvider>
           </NavbarWrapper>
         </Auth0Provider>
       </React.StrictMode>
