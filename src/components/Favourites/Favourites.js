@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import { useInput } from "../../hooks";
 import { Form, Container, Row, Col } from "react-bootstrap";
 import Input from "../Input/Input";
-import { GifWrapper } from "../../elements";
+import { GifWrapper, GifsContainer } from "../../elements";
 import { useDispatch } from "react-redux";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import { setError } from "../../features/Errors/ErrorsSlice";
+import { FAVOURITES } from "../../constants";
 
 const Favourites = () => {
   const [loading, setLoading] = useState(false);
@@ -34,13 +35,12 @@ const Favourites = () => {
       setLoading(false);
     } catch (ex) {
       setLoading(false);
-      dispatch(setError({ message: ex.message, component: "Favourites" }));
+      dispatch(setError({ message: ex.message, component: FAVOURITES }));
     }
   };
 
   return (
     <>
-      <div>Favourites</div>
       <Container fluid>
         <Form>
           <Row>
@@ -50,11 +50,10 @@ const Favourites = () => {
                 onChange={handleChange}
                 name="title"
                 type="text"
-                size={4}
               />
             </Col>
             <Col>
-              <ButtonComponent name="Submit" submit={search} size={4} />
+              <ButtonComponent name="Submit" submit={search} />
             </Col>
           </Row>
         </Form>
@@ -62,7 +61,7 @@ const Favourites = () => {
       {loading ? (
         <LoadingComponent />
       ) : (
-        <>
+        <GifsContainer>
           {filteredGifs.map((gif) => (
             <GifWrapper
               key={Math.random()}
@@ -70,7 +69,7 @@ const Favourites = () => {
               alt={gif.title}
             />
           ))}
-        </>
+        </GifsContainer>
       )}
     </>
   );
