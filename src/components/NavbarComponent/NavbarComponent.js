@@ -20,6 +20,7 @@ const NavbarComponent = () => {
         <Col xs={12}>
           {activeUser ? (
             <Row>
+              <LinkWrapper noalign={"true"}>GIPHY APP</LinkWrapper>
               <Col>
                 <LinkWrapper noalign={"true"}>
                   {activeUser?.given_name}
@@ -38,7 +39,12 @@ const NavbarComponent = () => {
               </Col>
             </Row>
           ) : (
-            <LinkWrapper onClick={loginWithRedirect}>Log in</LinkWrapper>
+            <Row>
+              <LinkWrapper>GIPHY APP</LinkWrapper>
+              <Col>
+                <LinkWrapper onClick={loginWithRedirect}>Log in</LinkWrapper>
+              </Col>
+            </Row>
           )}
         </Col>
       </Container>

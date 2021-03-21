@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import NotFound from "./components/NotFound/NotFound";
 import HomePage from "./components/HomePage/HomePage";
 import LoadingComponent from "./components/LoadingComponent/LoadingComponent";
-
+import Welcome from "./components/Welcome/Welcome";
 function App() {
   const { isLoading, user, error } = useAuth0();
   if (isLoading) {
@@ -18,18 +18,24 @@ function App() {
 
   if (storageUser) {
     return (
-      <>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/home-page" />
-          </Route>
-          <Route path="/home-page" component={HomePage} />
-          <Route path="*" exact component={NotFound} />
-        </Switch>
-      </>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/home-page" />
+        </Route>
+        <Route path="/home-page" component={HomePage} />
+        <Route path="*" exact component={NotFound} />
+      </Switch>
     );
   }
-  return null;
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Redirect to="/welcome" />
+      </Route>
+      <Route path="/welcome" component={Welcome} />
+      <Route path="*" exact component={NotFound} />
+    </Switch>
+  );
 }
 
 export default App;
