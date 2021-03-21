@@ -15,14 +15,14 @@ import { setError } from "../../features/Errors/ErrorsSlice";
 import { TRANDEING } from "../../constants";
 
 const Trending = () => {
-  const favouriteGifs = useSelector(gifsArray);
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const [gifs, setGifs] = useState([]);
   const [filters, handleChange] = useInput({
     limit: 10,
     offset: 1,
   });
+
+  const [loading, setLoading] = useState(false);
+  const [gifs, setGifs] = useState([]);
+  const dispatch = useDispatch();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -41,6 +41,8 @@ const Trending = () => {
       dispatch(setError({ message: ex.message, component: TRANDEING }));
     }
   };
+
+  const favouriteGifs = useSelector(gifsArray);
 
   return (
     <>

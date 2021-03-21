@@ -13,17 +13,17 @@ import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import { setError } from "../../features/Errors/ErrorsSlice";
 import { SEARCH } from "../../constants";
-const Search = () => {
-  const favouriteGifs = useSelector(gifsArray);
-  const [loading, setLoading] = useState(false);
 
-  const dispatch = useDispatch();
-  const [gifs, setGifs] = useState([]);
+const Search = () => {
   const [filters, handleChange] = useInput({
     search: "star",
     limit: 10,
     offset: 10,
   });
+  const [loading, setLoading] = useState(false);
+  const [gifs, setGifs] = useState([]);
+  const dispatch = useDispatch();
+
   const [errors, handleError] = useInput();
 
   const submit = async (e) => {
@@ -44,6 +44,8 @@ const Search = () => {
       dispatch(setError({ message: ex.message, component: SEARCH }));
     }
   };
+
+  const favouriteGifs = useSelector(gifsArray);
 
   return (
     <>

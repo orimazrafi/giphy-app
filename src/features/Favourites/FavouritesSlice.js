@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { todoInputSlice } from "../TodoInput/TodoInputSlice";
+
 const favouritesSlice = createSlice({
   name: "favourites",
   initialState: {
@@ -10,11 +10,6 @@ const favouritesSlice = createSlice({
       state.gifs.push(payload);
     },
   },
-  //   extraReducers: {
-  //     [todoInputSlice.actions.edit]: (state, action) => {
-  //       state.value++;
-  //     },
-  //   },
 });
 
 export const { setGif } = favouritesSlice.actions;

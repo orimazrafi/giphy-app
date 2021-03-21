@@ -26,3 +26,8 @@ export const LoaderWrapper = styled.div`
     margin: auto;
   }
 `;
+
+export const ErrorWrapper = styled.div`
+  color: ${({ theme }) => theme?.errorColor};
+  margin: 5px;
+`;

@@ -55,7 +55,7 @@ export default ErrorBoundryComponent(Sidebar);
 
 const ColWrapper = styled(Col)`
   height: calc(100vh - 56px);
-  background: #eee;
+  background: ${({ theme }) => theme?.sidebarBackground};
   max-width: 200px;
   padding-top: 10px;
   & > ul.home--page--links--wrapper {
