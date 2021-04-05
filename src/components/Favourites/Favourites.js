@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useInput } from "../../hooks";
-import { Form, Container, Row, Col } from "react-bootstrap";
-import Input from "../Input/Input";
+import { Container, } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import { setError } from "../../features/Errors/ErrorsSlice";
 import { FAVOURITES } from "../../constants";
 import GifsComponent from "../GifsComponenet/GifsComponent";
-
+import FormComponent from "../FormComponent/FormComponent"
 const Favourites = () => {
   const [displayNoGifMessage, setDisplayNoGifMessage] = useState(false);
   const [favourites, handleChange] = useInput({
@@ -47,31 +45,24 @@ const Favourites = () => {
   return (
     <>
       <Container fluid>
-        <Form>
-          <Row>
-            <Col xs={3}>
-              <Input
-                value={favourites.title}
-                onChange={handleChange}
-                name="title"
-                type="text"
-              />
-            </Col>
-            <Col>
-              <ButtonComponent name="Submit" submit={search} />
-            </Col>
-          </Row>
-        </Form>
+        <FormComponent
+          array={[{ name: "title", type: "text", validation: false }]}
+          filters={favourites}
+          handleChange={handleChange}
+          handleError={null}
+          errors={null}
+          submit={search}
+        />
       </Container>
       {loading ? (
         <LoadingComponent />
       ) : (
-        <GifsComponent
-          gifs={filteredGifs}
-          displayNoGifMessage={displayNoGifMessage}
-          favourite
-        />
-      )}
+          <GifsComponent
+            gifs={filteredGifs}
+            displayNoGifMessage={displayNoGifMessage}
+            favourite
+          />
+        )}
     </>
   );
 };
