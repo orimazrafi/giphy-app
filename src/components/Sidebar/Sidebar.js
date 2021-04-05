@@ -3,13 +3,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Route, Redirect, useLocation, Switch } from "react-router-dom";
 import Trending from "../Trending/Trending";
 import NotFound from "../NotFound/NotFound";
-
 import Favourites from "../Favourites/Favourites";
 import Search from "../Search/Search";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import styled from "styled-components";
 import { capitalizeFirstLetter } from "../../helpers";
-
 import { SIDEBAR_ACTIVE, TRANDEING, SEARCH, FAVOURITES } from "../../constants";
 import LinkWrapper from "../LinkWrapper/LinkWrapper";
 

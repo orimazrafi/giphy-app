@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Container, Form, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { formatUrl } from "../../helpers";
-import Input from "../Input/Input";
 import { useInput } from "../../hooks";
 import { useDispatch } from "react-redux";
-import ButtonComponent from "../ButtonComponent/ButtonComponent";
 import LoadingComponent from "../LoadingComponent/LoadingComponent";
 import ErrorBoundryComponent from "../ErrorBoundryComponent/ErrorBoundryComponent";
 import { setError } from "../../features/Errors/ErrorsSlice";
 import { TRANDEING } from "../../constants";
 import GifsComponent from "../GifsComponenet/GifsComponent";
-
+import FormComponent from "../FormComponent/FormComponent"
 const Trending = () => {
   const [filters, handleChange] = useInput({
     limit: 0,
@@ -47,35 +45,20 @@ const Trending = () => {
   return (
     <>
       <Container fluid>
-        <Form>
-          <Row>
-            <Col xs={3}>
-              <Input
-                value={filters.limit}
-                onChange={handleChange}
-                name="limit"
-                type="number"
-              />
-            </Col>
-            <Col xs={3}>
-              <Input
-                value={filters.offset}
-                onChange={handleChange}
-                name="offset"
-                type="number"
-              />
-            </Col>
-            <Col>
-              <ButtonComponent name="Submit" submit={submit} />
-            </Col>
-          </Row>
-        </Form>
+        <FormComponent
+          array={[{ name: "limit", type: "number", validation: false }, { name: "offset", type: "number", validation: false }]}
+          filters={filters}
+          handleChange={handleChange}
+          handleError={null}
+          errors={null}
+          submit={submit}
+        />
       </Container>
       {loading ? (
         <LoadingComponent />
       ) : (
-        <GifsComponent gifs={gifs} displayNoGifMessage={displayNoGifMessage} />
-      )}
+          <GifsComponent gifs={gifs} displayNoGifMessage={displayNoGifMessage} />
+        )}
     </>
   );
 };
